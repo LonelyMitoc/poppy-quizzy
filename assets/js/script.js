@@ -1,3 +1,6 @@
+// Start button -> starts timer and quiz
+// Multiple choices as buttons
+
 var scoreEl = document.getElementById('#scores');
 var timerEl = document.getElementById('#countdown');
 var quizContainer = document.getElementById('#quiz-container');
