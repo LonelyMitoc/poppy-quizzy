@@ -9,16 +9,20 @@ var multipleChoice = document.getElementById('#content-body');
 var startQuiz = document.getElementById('#start');
 var showAnswer = document.getElementById('#answer');
 
+var timeLeft = 75;
+var highScore = [];
+var userInitials = '';
+
 
 function countdown() {
-    var timeLeft = 75;
-
-    var timeInterval = setInterval(function () {
-        if (timeLeft > 1) {
-            timerEl.textContent = timeLeft;   
-            timeLeft--;         
-        } else {
-
+    var timeInterval = setInterval(function () {  
+        timeLeft--;
+        timerEl.textContent = 'Time: ${timeLeft} seconds';
+        if (timeLeft === 0) {
+            clearInterval(timeInterval);
+            if (questionHeading !== 'Game Over!') {
+                endQuiz();
+            }
         }
-    })
+    }, 1000)
 }
