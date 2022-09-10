@@ -182,7 +182,7 @@ footer {
     border-radius: 30px;
     box-shadow: 0 0 10px 1px var(--clr-btn-400);
     background-color: var(--clr-neutral-000);
-    margin: 30px 15% 0 15%;
+    margin: 30px 20vw 0 20vw;
 }
 
 .quiz-container > *{
