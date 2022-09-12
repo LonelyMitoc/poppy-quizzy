@@ -136,20 +136,27 @@ function addScore(event) {
     if (event !== undefined) {
         event.preventDefault();
     }
-    var id = document.getElementById("userInitials");
+    var initials = document.getElementById("userInitials");
+    if (initials.value.length === 0) {
+        showAnswer.textContent = "Please enter initials";
+        setTimeout(function() {
+            showAnswer.textContent = "";
+        }, 1000);
+        return;
+    }
 
     quizStat = false;
     document.getElementById("form").remove();
-    saveHighscore(id);
+    saveHighscore(initials);
 }
 
-function saveHighscore(id) {
+function saveHighscore(initials) {
     if (localStorage.getItem("highScore") !== null) {
         highScore = JSON.parse(window.localStorage.getItem("highScore"));
 
         var newScore = {
             score: timeLeft,
-            initials: id,
+            initials: initials.value,
         };
 
         highScore.push(newScore);
@@ -158,19 +165,17 @@ function saveHighscore(id) {
 
     // var initials = document.getElementById("userInitials");
     // if (initials !== "") {
-    //     var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    //     var highScore = JSON.parse(window.localStorage.getItem("highScore")) || [];
 
     //     var newScore = {
     //         score: timeLeft,
-    //         initials: initials,
+    //         initials: initials.value,
     //     };
 
-    //     highscores.push(newScore);
-    //     window.localStorage.setItem("highscores", JSON.stringify(highscores));
+    //     highScore.push(newScore);
+    //     window.localStorage.setItem("highScore", JSON.stringify(highScore));
 
-    //     document.getElementById("form").remove();
-
-    //     quizStat = false;
+    // }
         showScores();
 }
 
@@ -208,12 +213,12 @@ function storedScores() {
 function scoresheetBtns() {
     if(!document.getElementById("restart")) {
         var restartEl = document.createElement("button");
-        multipleChoice.appendChild(restartEl);
+        quizContainer.appendChild(restartEl);
         restartEl.textContent = "Restart Quiz";
         restartEl.setAttribute("id", "restart");
 
         var clearEl = document.createElement("button");
-        multipleChoice.appendChild(clearEl);
+        quizContainer.appendChild(clearEl);
         clearEl.textContent = "Clear All High Scores";
         clearEl.setAttribute("id", "clear");
 
@@ -229,6 +234,7 @@ function restartGame () {
     multipleChoice.textContent = "Wanna take a quick quiz? Once you press the START button you will have 75 seconds to answer 5 quick questions. Fair warning, wrong answers will deduct 15 seconds from the timer. GOOD LUCK!"
     currentQuestionNum = 0;
     timeLeft = 75;
+    startQuizBtn.setAttribute("style", "display: visible")
 }
 
 function clearScores() {
