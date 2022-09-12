@@ -24,14 +24,17 @@ var quizStat = false;
 var highScore = [];
 var userInitials = "";
 
+// Start button and high score button listeners
 startQuizBtn.addEventListener("click", startQuiz);
 scoreEl.addEventListener("click", showScores);
 
+// start of the quiz
 function startQuiz() {
     countdown();
     renderQuestions();
 }
 
+// starts timer and ends quiz when timer is 0
 function countdown() {
     timeInterval = setInterval(function () {  
         timeLeft--;
@@ -45,6 +48,8 @@ function countdown() {
     }, 1000)
 }
 
+//renders questions from questions.js
+// each multiple choice answer is turned into a button
 function renderQuestions() {
     quizStat = true;
     startQuizBtn.setAttribute("style", "display: none");
@@ -153,29 +158,15 @@ function addScore(event) {
 function saveHighscore(initials) {
     if (localStorage.getItem("highScore") !== null) {
         highScore = JSON.parse(window.localStorage.getItem("highScore"));
-
-        var newScore = {
-            score: timeLeft,
-            initials: initials.value,
-        };
+    }
+        var newScore = (
+            timeLeft + " " +
+            initials.value
+        );
 
         highScore.push(newScore);
         window.localStorage.setItem("highScore", JSON.stringify(highScore));
-    }
-
-    // var initials = document.getElementById("userInitials");
-    // if (initials !== "") {
-    //     var highScore = JSON.parse(window.localStorage.getItem("highScore")) || [];
-
-    //     var newScore = {
-    //         score: timeLeft,
-    //         initials: initials.value,
-    //     };
-
-    //     highScore.push(newScore);
-    //     window.localStorage.setItem("highScore", JSON.stringify(highScore));
-
-    // }
+    
         showScores();
 }
 
@@ -189,22 +180,22 @@ function showScores() {
         showAnswer.textContent = "Please enter your initials";
     } else {
         showAnswer.textContent = "Please finish the quiz first";
-
     }
 }
 
 function storedScores() {
     multipleChoice.textContent ="";
+    multipleChoice.setAttribute("style", "white-space: pre-wrap");
     if (localStorage.getItem("highScore") !== null) {
-        highscores = JSON.parse(localStorage.getItem("highScore"));
+        highScore = JSON.parse(localStorage.getItem("highScore"));
     }
     highScore.sort();
     highScore.reverse();
     var limit = 10;
-    if(limit > highScore.legnth) {
+    if(limit > highScore.length) {
         limit = highScore.length;
     }
-    for (var i = 0; i <limit; i++) {
+    for (var i = 0; i < limit; i++) {
         multipleChoice.textContent += highScore[i] + '\n';
     }
 
