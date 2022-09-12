@@ -7,6 +7,7 @@ This was probably the most struggle I had in a project because of punctuation (m
  - The page will open with a short description and two buttons to click; High Score and Start.
  - Timer and questions will render once the start button is pressed with high score button being disabled until the quiz is over.
  - After each question, there will be a message stating if your answer was correct or not.
+ - If the answer is incorrect, timem is deducted from the timer.
  - The quiz will end when all questions are answered or the time hits 0.
  - The high score and sumbit button will not proceed if the initials input is empty
  - The high score page will display the 10 best score or the scores that are saved locally if it is less than 10 scores.
