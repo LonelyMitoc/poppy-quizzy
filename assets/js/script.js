@@ -1,6 +1,6 @@
 // Start button -> starts timer and quiz
 // Multiple choices as buttons, button click -> Next question and answer to question before
-// -if incorrect, subtract time
+// >if incorrect, subtract time
 // Answer all Qs or score or timer is 0 -> "Game Over"
 // Game over -> show score and prompt input of initials
 // submit -> store in local storage and display high score, return & clear high score button
@@ -143,7 +143,7 @@ function addScore(event) {
     }
     var initials = document.getElementById("userInitials");
     if (initials.value.length === 0) {
-        showAnswer.textContent = "Please enter initials";
+        showAnswer.textContent = "Please enter initials before proceeding";
         setTimeout(function() {
             showAnswer.textContent = "";
         }, 1000);
@@ -177,10 +177,13 @@ function showScores() {
         storedScores();
         scoresheetBtns();
     } else if (questionHeading === "Game Over!") {
-        showAnswer.textContent = "Please enter your initials";
+        showAnswer.textContent = "Please enter your initials before proceeding";
     } else {
         showAnswer.textContent = "Please finish the quiz first";
     }
+    setTimeout(function() {
+        showAnswer.textContent = "";
+    }, 1000);
 }
 
 function storedScores() {
