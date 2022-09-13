@@ -52,11 +52,14 @@ function countdown() {
 // each multiple choice answer is turned into a button
 function renderQuestions() {
     quizStat = true;
+    // hide the start button
     startQuizBtn.setAttribute("style", "display: none");
     multipleChoice.textContent = '';
+    //render question
     var currentQuestion = questions[currentQuestionNum];
     questionHeading.textContent = currentQuestion.title;
     multipleChoice.innerHtml = "";
+    //render multiple choice
     currentQuestion.choices.forEach(function(choice, i){
         var choiceBtn = document.createElement("button");
         choiceBtn.setAttribute("class", "choice");
@@ -69,7 +72,9 @@ function renderQuestions() {
 
 }
 
+//action after pressing the answer choice
 function answerClick() {
+    //if statement to subtract time if incorrect
     if(this.value !== questions[currentQuestionNum].answer) {
         timeLeft -= 15;
         if (timeLeft <0) {
@@ -77,6 +82,7 @@ function answerClick() {
         }
 
         timerEl.textContent = 'Time: ' + timeLeft + ' seconds';
+        //shows the result of the question
         showAnswer.textContent = "Wrong"
         showAnswer.style.color = "Red";
         showAnswer.style.fontSize = "200%";
@@ -86,12 +92,15 @@ function answerClick() {
         showAnswer.style.fontSize = "200%";
     }
 
+    //the correct/wrong disappears after 1000 ms
     setTimeout(function() {
         showAnswer.textContent = "";
     }, 1000);
 
     currentQuestionNum++;
 
+    //if statement to check how many questions has been answered -
+    //continue rendering questions or end the quiz
     if(currentQuestionNum === questions.length) {
         endQuiz();
     } else {
@@ -100,6 +109,7 @@ function answerClick() {
 
 }
 
+//page shown when quiz ends
 function endQuiz() {
     questionHeading.textContent = 'Game Over!'
     multipleChoice.textContent = 'Your final score is ' + timeLeft;
@@ -108,6 +118,7 @@ function endQuiz() {
     inputInitials();
 }
 
+//append form to input initials for local storage
 function inputInitials() {
     var initialsForm = document.createElement("form");
     multipleChoice.appendChild(initialsForm);
@@ -131,12 +142,14 @@ function inputInitials() {
     submitInitial.addEventListener("click", addScore);
 }
 
+//prevent enter key of triggering a default effect
 function stopDefault(event) {
     if (event.key === "Enter") {
     event.preventDefault();
     }
 }
 
+//check if input is filled, if not message shows, if filled remove the form
 function addScore(event) {
     if (event !== undefined) {
         event.preventDefault();
@@ -155,6 +168,7 @@ function addScore(event) {
     saveHighscore(initials);
 }
 
+//save high score into local storage
 function saveHighscore(initials) {
     if (localStorage.getItem("highScore") !== null) {
         highScore = JSON.parse(window.localStorage.getItem("highScore"));
@@ -170,6 +184,7 @@ function saveHighscore(initials) {
         showScores();
 }
 
+//show the high scores page (from high score button and after selecting the submit button above)
 function showScores() {
     if (!quizStat) {
         questionHeading.textContent = "High Scores";
@@ -186,6 +201,7 @@ function showScores() {
     }, 1000);
 }
 
+//show the high scores from local storage
 function storedScores() {
     multipleChoice.textContent ="";
     multipleChoice.setAttribute("style", "white-space: pre-wrap");
@@ -204,6 +220,7 @@ function storedScores() {
 
 }
 
+//append buttons for restarting the quiz or clearing the local storage
 function scoresheetBtns() {
     if(!document.getElementById("restart")) {
         var restartEl = document.createElement("button");
@@ -221,6 +238,7 @@ function scoresheetBtns() {
     }
 }
 
+//re input the opening page as it was and reset variables 
 function restartGame () {
     document.getElementById("restart").remove();
     document.getElementById("clear").remove();
@@ -231,6 +249,7 @@ function restartGame () {
     startQuizBtn.setAttribute("style", "display: visible")
 }
 
+//clear local storage when clear button is selected from above
 function clearScores() {
     localStorage.clear();
     multipleChoice.textContent = "";

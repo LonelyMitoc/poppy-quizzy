@@ -194,6 +194,7 @@ footer {
     align-self: center;
 }
 
+/* multiple choice button styling */
 .choice {
     display: block;
     padding: 5px 10px;
@@ -210,6 +211,7 @@ footer {
     background-color: var(--clr-btn-700);
 }
 
+/* submit button slight styling */
 #submit {
     margin: 20px
 }
